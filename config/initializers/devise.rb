@@ -238,7 +238,7 @@ Devise.setup do |config|
   config.omniauth :google_oauth2,
     "270710758682-s3gchltioln42m0m3c92jja4npa1ohne.apps.googleusercontent.com",
     "7jRwq3gnaRkYQ1x2PjIEiPS_",
-    { access_type: "offline", approval_prompt: "" }
+    { scope: "userinfo.email, userinfo.profile, https://www.google.com/m8/feeds/", access_type: "offline", approval_prompt: "" }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

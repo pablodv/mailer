@@ -9,6 +9,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def provider_authentication
     provider = request.env["omniauth.auth"].provider.split("_")[0]
     @user    = User.find_or_create_with_omniauth(request.env['omniauth.auth'])
+    session[:token] = request.env["omniauth.auth"][:credentials].token
 
     if @user.persisted?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: provider.titleize
