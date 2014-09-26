@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
-  # You can have the root of your site routed with "root"
-  root 'home#show'
+  match 'contact' => 'contacts#new', as: :contact, via: :get
+  match 'contact' => 'contacts#create', as: :create_contact, via: :post
+
+  root 'contacts#new'
 end

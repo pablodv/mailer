@@ -1,0 +1,46 @@
+<% if current_user.nil? %>
+  <%= link_to "Sign in", new_user_session_path %>
+  <%= link_to "Sign up", new_user_registration_path %>
+<% else %>
+
+  <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+  <h1><%= "Welcome #{current_user.first_name}" %></h1>
+
+  <% if @diary.present? %>
+    <h3>Contacts</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th></th>
+        </tr>
+      </thead>
+      <% @diary["feed"]["entry"].each do |contact| %>
+        <tr>
+          <td><%= contact["title"]["$t"] %></td>
+          <td><%= contact["gd$email"][0]["address"] %></td>
+          <td><%= link_to "Add", "#", class: "add-email" %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+
+  <%= form_for @contact, url: create_contact_path do |f| %>
+    <%= @contact.errors.full_messages.join("<br/>").html_safe %>
+
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+    <br>
+
+    <%= f.label :subject %>
+    <%= f.text_field :subject, class: "span10" %>
+    <br>
+
+    <%= f.label :body, "Message" %>
+    <%= f.text_area :body, rows: 10 %>
+    <br>
+
+    <%= f.submit "Send" %>
+  <% end %>
+<% end %>

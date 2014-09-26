@@ -14,3 +14,14 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function(){
+  $(".add-email").on('click', function(e){
+    e.preventDefault();
+
+    emails = $("#contact_email").val();
+    emails += $(this).closest('td').prev().text() + ",";
+
+    $("#contact_email").val(emails);
+  });
+});
